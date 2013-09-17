@@ -13,8 +13,8 @@ COL_YELLOW=$ESC_SEQ"33;01m"
 COL_BLUE=$ESC_SEQ"34;01m"
 
 function getlink () {
-		link=`cat /dev/urandom | tr -dc 'a-zA-Z0-9-_' | head -c11`
-		test=$link
+		link=`cat /dev/urandom | tr -dc 'a-zA-Z0-9-_' | head -c11` # генерация случайной строки из нашего алфавита
+		#test = $link
 		link="http://www.youtube.com/watch?v=$link"
 }
 function process () {
@@ -23,7 +23,6 @@ function process () {
 	ISSET=`echo $VIDEO | grep -ic "name=\"title\""`
 	COUNT=`echo $VIDEO | grep -ic "Это видео могут просматривать только пользователи, у которых есть ссылка"` # определяем количество совпадений строки
 	
-	echo "$VIDEO" > you/$test.txt
 	if [ "$ISSET" -gt 0 ]
 	then 
 		if [ "$COUNT" -gt 0 ] # если количество совпадений больше чем нуль (видео доступно только по ссылке)
