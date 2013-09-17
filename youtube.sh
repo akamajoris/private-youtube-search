@@ -19,7 +19,6 @@ function getlink () {
 }
 function process () {
 	getlink # получаем новую ссылку
-	#link="http://www.youtube.com/watch?v=wkrgsFD7c48"
 	VIDEO=`curl -s $link` # получаем контент
 	ISSET=`echo $VIDEO | grep -ic "name=\"title\""`
 	COUNT=`echo $VIDEO | grep -ic "Это видео могут просматривать только пользователи, у которых есть ссылка"` # определяем количество совпадений строки
