@@ -14,18 +14,18 @@ COL_BLUE=$ESC_SEQ"34;01m"
 
 function getlink () {
 		link=`cat /dev/urandom | tr -dc 'a-zA-Z0-9-_' | head -c11`
-		test=$link
+		# test=$link
 		link="http://www.youtube.com/watch?v=$link"
 }
 function process () {
-	getlink # РПМХЮБЕН ОПЧХА УУЩМЛХ
+	getlink
 	VIDEO=`curl -s --header "Accept-Language: en" $link` 
 	ISSET=`echo $VIDEO | grep -ic "name=\"title\""`
 	COUNT=`echo $VIDEO | grep -ic "Only those with the link can see it"` 
 	echo "$VIDEO" > you/$test.txt 
 	if [ "$ISSET" -gt 0 ]
 	then 
-		echo "$link" >> youtube.log
+		# echo "$link" >> youtube.log # for debug
 		if [ "$COUNT" -gt 0 ]
 		then
 			let PRIVATE=$PRIVATE+1
