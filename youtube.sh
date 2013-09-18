@@ -13,19 +13,20 @@ COL_YELLOW=$ESC_SEQ"33;01m"
 COL_BLUE=$ESC_SEQ"34;01m"
 
 function getlink () {
-		link=`cat /dev/urandom | tr -dc 'a-zA-Z0-9-_' | head -c11` # генерация случайной строки из нашего алфавита
-		#test = $link
+		link=`cat /dev/urandom | tr -dc 'a-zA-Z0-9-_' | head -c11`
+		test=$link
 		link="http://www.youtube.com/watch?v=$link"
 }
 function process () {
-	getlink # получаем новую ссылку
-	VIDEO=`curl -s $link` # получаем контент
+	getlink # РПМХЮБЕН ОПЧХА УУЩМЛХ
+	VIDEO=`curl -s --header "Accept-Language: en" $link` 
 	ISSET=`echo $VIDEO | grep -ic "name=\"title\""`
-	COUNT=`echo $VIDEO | grep -ic "Это видео могут просматривать только пользователи, у которых есть ссылка"` # определяем количество совпадений строки
-	
+	COUNT=`echo $VIDEO | grep -ic "Only those with the link can see it"` 
+	echo "$VIDEO" > you/$test.txt 
 	if [ "$ISSET" -gt 0 ]
 	then 
-		if [ "$COUNT" -gt 0 ] # если количество совпадений больше чем нуль (видео доступно только по ссылке)
+		echo "$link" >> youtube.log
+		if [ "$COUNT" -gt 0 ]
 		then
 			let PRIVATE=$PRIVATE+1
 			echo -en $link
@@ -36,9 +37,9 @@ function process () {
 		echo "\n"$VIDEO | grep -o '<title>.*</title>' | sed 's/\ -\ YouTube//;s/<[^>]\+>//g;s/&amp;/ /g'
 		
 	else 
-		let NOT_FOUND=$NOT_FOUND+1; # нет такого видео
+		let NOT_FOUND=$NOT_FOUND+1 
 	fi
-	echo "$link" >> youtube.log
+	
 	
 	let ALL=$ALL+1
 	
@@ -54,6 +55,7 @@ while true; do
 	process
 	update
 done
+
 
 
 
