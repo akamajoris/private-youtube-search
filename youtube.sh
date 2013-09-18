@@ -22,10 +22,10 @@ function process () {
 	VIDEO=`curl -s --header "Accept-Language: en" $link` 
 	ISSET=`echo $VIDEO | grep -ic "name=\"title\""`
 	COUNT=`echo $VIDEO | grep -ic "Only those with the link can see it"` 
-	echo "$VIDEO" > you/$test.txt 
+	# echo "$VIDEO" > you/$test.txt # for debug
 	if [ "$ISSET" -gt 0 ]
 	then 
-		# echo "$link" >> youtube.log # for debug
+		echo "$link" >> youtube.log # for debug
 		if [ "$COUNT" -gt 0 ]
 		then
 			let PRIVATE=$PRIVATE+1
