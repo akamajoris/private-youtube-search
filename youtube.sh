@@ -34,7 +34,7 @@ function process () {
 			let PUBLIC=$PUBLIC+1
 			echo -en $link
 		fi
-		echo "\n"$VIDEO | grep -o '<title>.*</title>' | sed 's/\ -\ YouTube//;s/<[^>]\+>//g;s/&amp;/ /g'
+		echo $VIDEO | grep -o '<title>.*</title>' | sed 's/\ -\ YouTube//;s/<[^>]\+>//g;s/&amp;/ /g'
 		
 	else 
 		let NOT_FOUND=$NOT_FOUND+1 
